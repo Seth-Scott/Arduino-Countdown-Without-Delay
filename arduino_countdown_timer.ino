@@ -12,36 +12,38 @@ NOTE: The word "countdown" is used frequently here, but in reality, we're counti
 
 const int LED=13;
 const int button=12;
-  //assigns the state (pressed/not pressed) of the button to an integer
-      int buttonState;
 
-  //the exact moment which millis() will be pegged to when the button is pressed
+//assigns the state (pressed/not pressed) of the button to an integer
+int buttonState;
+
+//the exact moment which millis() will be pegged to when the button is pressed
 unsigned long countdownBegin;
-  //adjust this time in milliseconds, the LED will turn off after time has elapsed
+
+//adjust this time in milliseconds, the LED will turn off after time has elapsed
 unsigned long countdown=5000;
 
 void setup() { 
-    pinMode(LED,OUTPUT);
-    pinMode(button,INPUT);
+  pinMode(LED,OUTPUT);
+  pinMode(button,INPUT);
 
   //allows the user to use a button without an external resistor
-    digitalWrite(button,HIGH);
+  digitalWrite(button,HIGH);
 
-    Serial.begin(9600);
+  Serial.begin(9600);
 }
 
 void loop() {
   //checks the state of the button (if you press the button it will read 0, unpressed will read 1)
-    buttonState=digitalRead(button);
-    Serial.println(countdownBegin);
+  buttonState=digitalRead(button);
+  Serial.println(countdownBegin);
 
   //if the button is pressed, peg "countdownBegin" to millis(), turns on the light 
-    if(buttonState==0){
-      countdownBegin=millis();
-      digitalWrite(LED,HIGH);
-    }
+  if(buttonState==0){
+    countdownBegin=millis();
+    digitalWrite(LED,HIGH);
+  }
   //once millis() reaches the sum of "countdownBegin" and "countdown", turn off the light 
-    if(millis() >= countdownBegin + countdown){
-      digitalWrite(LED,LOW);
-    }
+  if(millis() >= countdownBegin + countdown){
+    digitalWrite(LED,LOW);
+  }
 }
